@@ -13,3 +13,9 @@ out
 bin
 build
 node_modules
+lib
+media
+target
+logs
+*.jar
+data

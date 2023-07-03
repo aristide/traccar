@@ -17,3 +17,5 @@ lib
 logs
 data
 media
+traccar.xml
+test

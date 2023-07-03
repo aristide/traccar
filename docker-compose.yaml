@@ -3,8 +3,8 @@ version: "3.5"
 services:
   # Mariadb
   mysqldb:
-    image: 'mysql:8.0.20'
-    container_name: traccardatabase
+    image: 'mysql:8.0.33'
+    container_name: mysqldb
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     volumes:
@@ -23,7 +23,7 @@ services:
   # PhpMyAdmin
   phpmyadmin:
     image: 'bitnami/phpmyadmin:4.9.0-1-r44'
-    container_name: traccarmyadmin
+    container_name: phpmyadmin
     ports:
       - 8181:80
     volumes:
@@ -38,26 +38,73 @@ services:
   # Mailer
   mailer:
     image: djfarrelly/maildev:1.0.0
-    container_name: traccarmailer
+    container_name: mailer
     ports: 
       - 1080:80
       - 1025:25
-
-  traccar:
-    image: atmmotors/traccar:1.0
-    container_name: traccarapp
+ 
+  gradlew :
+    image: atmmotors/server-gradlew:1.0.0 
+    container_name: gradlew
     restart: always
     volumes:
-        - ./setup/traccar.docker.xml:/opt/traccar/conf/traccar.xml
-        - traccarlogs:/opt/traccar/logs
+      - ttarget:/home/atmmotors/target
+      - tschema:/home/atmmotors/schema
+      - ttemplates:/home/atmmotors/templates
+      - tlib:/home/atmmotors/target/lib
+      - ./:/home/atmmotors
+
+  server-dev :
+    image: atmmotors/server-dev:1.0.0 
+    container_name: server-dev
+    restart: always
+    volumes:
+      - ./setup/traccar.docker.xml:/home/atmmotors/conf/traccar.xml
+      - ./setup/default.xml:/home/atmmotors/conf/default.xml
+      - ttarget:/home/atmmotors
+      - tschema:/home/atmmotors/schema
+      - ttemplates:/home/atmmotors/templates
+      - tlib:/home/atmmotors/lib
+    environment:
+      - SERVICE_PRECONDITION=mysqldb:3306
+      - FILE_PRECONDITION=/home/atmmotors/tracker-server.jar
     ports:
-        - "5000-5150:5000-5150"
-        - "8082:8082"
+      - "6000-6150:5000-5150"
+      - "8082:8082"    
+      - "9000:9000"
     depends_on:
-      - mysqldb  
+      - mysqldb
+      - gradlew
+
+  client-dev :
+    image: atmmotors/client-dev:1.0.0 
+    container_name: client-dev
+    restart: always
+    volumes:
+      - ./traccar-web/modern:/home/atmmotors
+      - node_module:/home/atmmotors/node_modules
+    ports:
+      - "3000:3000"
+    depends_on:
+      - server-dev
+
+  api-reference:
+    image: atmmotors/api-reference:1.0.0 
+    container_name: api-reference
+    restart: always
+    ports:
+      - "8080:80"
+    environment:
+      PAGE_TITLE: ATM tracker
+      SPEC_URL: /swagger.json
 
 volumes:
-    phpmyadmindata:
-    mysqldata:
-    mysqllogs:
-    traccarlogs:
+  phpmyadmindata:
+  mysqldata:
+  mysqllogs:
+  logs:
+  node_module:
+  ttarget:
+  tschema:
+  ttemplates:
+  tlib:
