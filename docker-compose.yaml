@@ -81,7 +81,7 @@ services:
     container_name: client-dev
     restart: always
     volumes:
-      - ./traccar-web/modern:/home/atmmotors
+      - ../traccar-web/modern:/home/atmmotors
       - node_module:/home/atmmotors/node_modules
     ports:
       - "3000:3000"

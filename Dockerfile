@@ -90,7 +90,7 @@ CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
 FROM node:18.12.0-alpine as client-production
 
 ARG GIT_REPO="https://github.com/aristide/traccar-web"
-ARG GIT_BRANCH="master"
+ARG GIT_BRANCH="production"
 
 WORKDIR /home/atmmotors
 
@@ -160,5 +160,3 @@ FROM redocly/redoc:v2.0.0 as api-reference
 
 RUN mkdir -p /opt/docs
 COPY ./swagger.json /usr/share/nginx/html/
-
-COPY ./setup/api-reference.conf /etc/nginx/nginx.conf
