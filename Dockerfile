@@ -159,4 +159,5 @@ CMD [ "java", "-Xms1g", "-Xmx1g", "-Djava.net.preferIPv4Stack=true", "-jar", "at
 FROM redocly/redoc:v2.0.0 as api-reference
 
 RUN mkdir -p /opt/docs
-COPY ./swagger.json /usr/share/nginx/html/
+COPY ./customswagger.json /usr/share/nginx/html/swagger.json
+COPY ./setup/api-run.sh /usr/local/bin/docker-run.sh

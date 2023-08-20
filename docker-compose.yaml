@@ -29,9 +29,11 @@ services:
     volumes:
       - phpmyadmindata:/bitnami
     environment:
-      - PHPMYADMIN_ALLOW_NO_PASSWORD=false
+      - PHPMYADMIN_ALLOW_NO_PASSWORD=true
       - PHPMYADMIN_PASSWORD=password
-      - DATABASE_HOST=traccardatabase
+      - DATABASE_HOST=mysqldb
+      - DATABASE_USER=traccar
+      - DATABASE_PASSWORD=password
     depends_on:
       - mysqldb
   
@@ -83,6 +85,11 @@ services:
     volumes:
       - ../traccar-web/modern:/home/atmmotors
       - node_module:/home/atmmotors/node_modules
+    environment:
+      - ESLINT_NO_DEV_ERRORS=false
+      - REACT_APP_URL_NAME=server-dev:8082
+      - REACT_APP_VERSION=$npm_package_version
+      - REACT_APP_LANGUAGES=fr,en
     ports:
       - "3000:3000"
     depends_on:
@@ -97,6 +104,9 @@ services:
     environment:
       PAGE_TITLE: ATM tracker
       SPEC_URL: /swagger.json
+      DEMO_SERVER: http://localhost:8082/api
+      WEBSITE: localhost
+      SUPPORT_EMAIL: support@atmmotors.org
 
 volumes:
   phpmyadmindata:

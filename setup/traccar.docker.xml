@@ -48,4 +48,15 @@
     }
     </entry> -->
 
+    <!-- Géocoder https://fr.locationiq.com/demo -->
+    <!-- <entry key='geocoder.enable'>true</entry>
+    <entry key='geocoder.type'>nominatim</entry>
+    <entry key='geocoder.url'>https://us1.locationiq.com/v1/reverse.php</entry>
+    <entry key='geocoder.key'>YOUR API KEY</entry> -->
+
+    <!-- LBS Geolocation from google -->
+    <!-- <entry key='geolocation.enable'>true</entry>
+    <entry key='geolocation.type'>google</entry>
+    <entry key='geolocation.key'>YOUR API KEY</entry> -->
+
 </properties>

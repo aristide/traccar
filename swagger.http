@@ -1,0 +1,71 @@
+@demo_url=http://localhost:8082
+
+
+####### Session
+###
+GET {{demo_url}}/api/server
+Accept: application/json
+
+###
+PUT {{demo_url}}/api/server
+Content-Type: application/json
+Accept: application/json
+
+{
+  "id": "<integer>",
+  "registration": "<boolean>",
+  "readonly": "<boolean>",
+  "deviceReadonly": "<boolean>",
+  "limitCommands": "<boolean>",
+  "map": "<string>",
+  "bingKey": "<string>",
+  "mapUrl": "<string>",
+  "poiLayer": "<string>",
+  "latitude": "<number>",
+  "longitude": "<number>",
+  "zoom": "<integer>",
+  "twelveHourFormat": "<boolean>",
+  "version": "<string>",
+  "forceSettings": "<boolean>",
+  "coordinateFormat": "<string>",
+  "openIdEnabled": "<boolean>",
+  "openIdForce": "<boolean>",
+  "attributes": {}
+}
+
+
+# {
+#   "id": 1,
+#   "attributes": {
+#     "timezone": "Africa/Dakar"
+#   },
+#   "registration": false,
+#   "readonly": false,
+#   "deviceReadonly": false,
+#   "map": "googleRoad",
+#   "bingKey": null,
+#   "mapUrl": null,
+#   "overlayUrl": null,
+#   "latitude": 14.720471,
+#   "longitude": -17.4587,
+#   "zoom": 17,
+#   "twelveHourFormat": false,
+#   "forceSettings": false,
+#   "coordinateFormat": null,
+#   "limitCommands": false,
+#   "disableReports": false,
+#   "fixedEmail": false,
+#   "poiLayer": null,
+#   "announcement": null,
+#   "emailEnabled": false,
+#   "geocoderEnabled": true,
+#   "textEnabled": false,
+#   "storageSpace": null,
+#   "newServer": false,
+#   "openIdEnabled": false,
+#   "openIdForce": false,
+#   "version": "5.8"
+# }
+
+####### Session
+
