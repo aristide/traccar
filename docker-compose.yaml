@@ -87,13 +87,14 @@ services:
       - node_module:/home/atmmotors/node_modules
     environment:
       - ESLINT_NO_DEV_ERRORS=false
-      - REACT_APP_URL_NAME=server-dev:8082
-      - REACT_APP_VERSION=$npm_package_version
-      - REACT_APP_LANGUAGES=fr,en
+      - VITE_APP_SERVER_URL=server-dev:8082
+      - VITE_APP_LANGUAGES=fr,en
+      - VITE_APP_VERSION=$npm_package_version
     ports:
       - "3000:3000"
     depends_on:
       - server-dev
+    tty: true
 
   api-reference:
     image: atmmotors/api-reference:1.0.0 
@@ -101,6 +102,19 @@ services:
     restart: always
     ports:
       - "8080:80"
+    environment:
+      PAGE_TITLE: ATM tracker
+      SPEC_URL: /swagger.json
+      DEMO_SERVER: http://localhost:8082/api
+      WEBSITE: localhost
+      SUPPORT_EMAIL: support@atmmotors.org
+
+  origin-api-reference:
+    image: atmmotors/origin-api-reference:1.0.0 
+    container_name: origin-api-reference
+    restart: always
+    ports:
+      - "8081:80"
     environment:
       PAGE_TITLE: ATM tracker
       SPEC_URL: /swagger.json
