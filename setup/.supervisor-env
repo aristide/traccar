@@ -1,0 +1,4 @@
+#!/bin/bash
+
+export JAVA_XMS="512m"
+export JAVA_XMX="512m"

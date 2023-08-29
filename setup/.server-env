@@ -1,0 +1,21 @@
+# Database
+MYSQL_HOST="localhost:3306"
+MYSQL_DB_USERNAME="trackinguser"
+MYSQL_DB_PASSWORD="trackingpassword"
+MYSQL_DATABASE="trackingdb"
+# Notification
+NOTIFICATION_TYPES="web,sms,firebase"
+NOTIFICATION_FIREBASE_KEY=""
+# SMTP 
+SMTP_HOST="smtp.clicksend.com"
+SMTP_PORT="465"
+SMTP_FROM_EMAIL="noreply@maaeko.com"
+SMTP_USERNAME="mendoo.aristide@gmail.com"
+SMTP_PASSWORD=""
+# SMS
+SMS_USERNAME="mendoo.aristide@gmail.com"
+SMS_API_KEY=""
+# GEOCODER
+GEOCODER_KEY=""
+# LBS GEOLOCATION
+GEOLOCATION_KEY="" 

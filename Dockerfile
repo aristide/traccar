@@ -42,7 +42,7 @@ RUN \
 
 RUN mkdir -p tmp lib media logs data bin build conf modern
 RUN mkdir -p /var/log/supervisor  /etc/supervisor/ 
-COPY ./setup/supervisord.conf /etc/supervisor/
+COPY ./setup/supervisor-docker.conf /etc/supervisor/supervisord.conf
 COPY ./setup/entrypoint.sh /
 RUN chmod +x /entrypoint.sh
 
@@ -137,16 +137,63 @@ WORKDIR /opt/atmmotors
 ENTRYPOINT [ "/entrypoint.sh" ]
 CMD [ "java", "-Xms1g", "-Xmx1g", "-Djava.net.preferIPv4Stack=true", "-jar", "atmmotors-server.jar", "conf/traccar.xml" ]
 
-# Api reference 
+########## Api reference 
 FROM redocly/redoc:v2.0.0 as api-reference
 
 RUN mkdir -p /opt/docs
 COPY ./customswagger.json /usr/share/nginx/html/swagger.json
 COPY ./setup/api-run.sh /usr/local/bin/docker-run.sh
 
-# Api reference 
+########## Origin Api reference 
 FROM redocly/redoc:v2.0.0 as origin-api-reference
 
 RUN mkdir -p /opt/docs
 COPY ./swagger.json /usr/share/nginx/html/swagger.json
 COPY ./setup/api-run.sh /usr/local/bin/docker-run.sh
+
+########## CI/CD to the server
+FROM alpine:latest as cicd
+
+# Set environment variables for the non-root user
+ENV USER=appuser
+ENV HOME=/home/$USER
+
+# Create a non-root user and set up the home directory
+RUN adduser -D $USER
+WORKDIR $HOME
+
+# Install OpenSSH client
+RUN apk upgrade --update && \
+    apk add --update curl bash openssh-client && \
+    rm -rf /var/cache/apk/* && \
+    mkdir -p $HOME/conf \
+    mkdir -p $HOME/setup \
+    mkdir -p $HOME/.ssh
+
+RUN chmod 700 ~/.ssh
+
+# Copy the entrypoint script
+COPY ./setup  $HOME/setup/
+COPY ./setup/traccar.web.xml  $HOME/conf/traccar.xml.template
+COPY ./setup/default.xml  $HOME/conf/default.xml
+COPY ./setup/entrypoint-cicd.sh /entrypoint.sh
+COPY ./setup/copy-cicd.sh /copy-cicd.sh
+RUN chmod +x /entrypoint.sh
+RUN chmod +x /copy-cicd.sh
+
+# only copy needed binaries 
+COPY --from=gradlew-production /home/atmmotors/schema $HOME/schema
+COPY --from=gradlew-production /home/atmmotors/templates $HOME/templates
+COPY --from=client-production  /home/atmmotors/build $HOME/modern
+COPY --from=gradlew-production /home/atmmotors/target/lib $HOME/lib
+COPY --from=gradlew-production /home/atmmotors/target/tracker-server.jar $HOME/atmmotors-server.jar
+
+# Change ownership of the home directory to the non-root user
+RUN chown -R $USER:$USER $HOME
+
+VOLUME [ "$HOME/setup" ]
+
+# Set the entrypoint to run the script
+ENTRYPOINT ["/entrypoint.sh"]
+
+CMD [ "/copy-cicd.sh" ]

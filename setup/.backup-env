@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# MySQL Database Information
+DB_USER="your_mysql_user"
+DB_PASSWORD="your_mysql_password"
+DB_NAME="your_database_name"
+
+# DigitalOcean Spaces Configuration
+DO_ACCESS_KEY="your_digitalocean_access_key"
+DO_SECRET_KEY="your_digitalocean_secret_key"
+DO_BUCKET_NAME="your_bucket_name"
+DO_REGION="your_region"  # e.g., nyc3

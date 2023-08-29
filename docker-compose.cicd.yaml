@@ -1,0 +1,14 @@
+version: "3.5"
+
+services:
+  # CICD
+  cicd:
+    image: 'atmmotors/cicd:1.0.0'
+    container_name: cicd
+    volumes:
+      - ./setup:/home/appuser/setup
+    env_file: 
+      - .env_remote_server
+
+volumes:
+  phpmyadmindata:

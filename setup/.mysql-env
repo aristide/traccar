@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# configuration configuration from environment variables
+export ROOT_PASSWORD="rootpassword"
+export DEFAULT_USER="trackinguser"
+export DEFAULT_USER_PASSWORD="trackingpassword"
+export DEFAULT_DATABASE="trackingdb"

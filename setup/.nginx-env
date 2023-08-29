@@ -1,0 +1,5 @@
+#!/bin/bash
+
+export NGINX_MAAEKO="dev.maaeko.com"
+export NGINX_MYADMIN="myadmindev.maaeko.com"
+export NGINX_SUPERVISOR="superdev.maaeko.com"
