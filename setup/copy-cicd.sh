@@ -13,9 +13,11 @@ scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null  \
     "$SETUP_FOLDER/.server-env"  \
     "$SETUP_FOLDER/.nginx-env"  \
     "$SETUP_FOLDER/.supervisor-env"  \
+    "$SETUP_FOLDER/.init-env"  \
     "$SETUP_FOLDER/supervisor.conf"  \
     "$SETUP_FOLDER/do-db-backup.sh"  \
     "$SETUP_FOLDER/mysql-deploy.sh"  \
+    "$SETUP_FOLDER/init-server.sh"  \
     "$REMOTE_USER@$REMOTE_HOST:/opt/deployment/"
 
 echo "Copy application files on $REMOTE_HOST server"

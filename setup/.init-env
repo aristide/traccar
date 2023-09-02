@@ -1,0 +1,5 @@
+#!/bin/bash
+
+
+export INIT_ADMIN_USERNAME="admin"
+export INIT_ADMIN_PASSWORD="admin"

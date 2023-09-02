@@ -39,4 +39,14 @@ if [ ! -z "$SERVICE_PRECONDITION" ]; then
     done
 fi
 
+if [ $FLASK_ENV == "development" ]; then
+  if [ ! -f "/app/migrations/.migrated" ]; then
+    flask db init
+    flask db migrate -m "initial migration"
+    touch /app/migrations/.migrated
+  fi 
+fi
+
+flask db upgrade
+
 exec $@

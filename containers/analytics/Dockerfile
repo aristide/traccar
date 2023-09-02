@@ -6,7 +6,7 @@ ENV FLASK_APP=app.py
 ENV FLASK_RUN_HOST=0.0.0.0
 ENV FLASK_ENV=production
 
-COPY ./setup/entrypoint.sh /
+COPY ./entrypoint.sh /
 RUN chmod +x /entrypoint.sh
 
 # Install production dependencies
@@ -18,6 +18,8 @@ COPY . .
 
 # Expose the Flask application port
 EXPOSE 5000
+
+VOLUME [ "/app" ]
 
 ENTRYPOINT ["/entrypoint.sh"]
 # Run the Flask application
@@ -31,18 +33,20 @@ ENV FLASK_APP=app.py
 ENV FLASK_RUN_HOST=0.0.0.0
 ENV FLASK_ENV=development
 
-COPY ./setup/entrypoint.sh /
+COPY ./entrypoint.sh /
 RUN chmod +x /entrypoint.sh
 
 # Install development dependencies
-COPY requirements-dev.txt .
-RUN pip install --no-cache-dir -r requirements-dev.txt
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the Flask application code
 COPY . .
 
 # Expose the Flask application port
 EXPOSE 5000
+
+VOLUME [ "/app" ]
 
 ENTRYPOINT ["/entrypoint.sh"]
 # Run the Flask application with automatic reloading

@@ -1,4 +1,4 @@
-# Local development mode
+# Local development
 
 Inside client source code folder
 
@@ -16,7 +16,13 @@ $docker build --target origin-api-reference -t atmmotors/origin-api-reference:1.
 $docker build --target cicd -t atmmotors/cicd:1.0.0 .
 ```
 
-# Debug/dev online server deployment 
+Go inside containers/analytics and build the analytics iamge
+```bash
+$docker build --target development -t atmmotors/analytics-dev:1.0.0 .
+```
+
+
+#  Online  dev server deployment 
 
 Deployment made on Ubuntu sever version 22
 
@@ -52,6 +58,8 @@ copy the deployment and applicaiton files from deployment to remote server:
    - setup/.backup-env
    - setup/do-db-backup.sh
    - setup/.server-dev-env
+
+## First installation
 
 ```bash
 # run the following cicd docker 
@@ -122,4 +130,7 @@ $sudo ufw enable
 $sudo wget -qO- https://repos-droplet.digitalocean.com/install.sh | sudo bash
 ```
 
-# Production server deployment
+# Update deployment
+
+
+

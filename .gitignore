@@ -22,3 +22,4 @@ test
 ./conf*
 .env_remote_server
 setup/docker_rsa
+.migrated

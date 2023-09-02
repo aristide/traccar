@@ -1,71 +1,88 @@
-@demo_url=http://localhost:8082
-
+@serve_url=http://localhost:8082
+@admin_username=admin
+@admin_password=admin
 
 ####### Session
 ###
-GET {{demo_url}}/api/server
+GET {{serve_url}}/api/server
 Accept: application/json
 
 ###
-PUT {{demo_url}}/api/server
+PUT {{serve_url}}/api/server
 Content-Type: application/json
 Accept: application/json
+Authorization: Basic {{admin_username}}:{{admin_password}}
 
 {
-  "id": "<integer>",
-  "registration": "<boolean>",
-  "readonly": "<boolean>",
-  "deviceReadonly": "<boolean>",
-  "limitCommands": "<boolean>",
-  "map": "<string>",
-  "bingKey": "<string>",
-  "mapUrl": "<string>",
-  "poiLayer": "<string>",
-  "latitude": "<number>",
-  "longitude": "<number>",
-  "zoom": "<integer>",
-  "twelveHourFormat": "<boolean>",
-  "version": "<string>",
-  "forceSettings": "<boolean>",
-  "coordinateFormat": "<string>",
-  "openIdEnabled": "<boolean>",
-  "openIdForce": "<boolean>",
-  "attributes": {}
+  "id": 1,
+  "registration": false,
+  "readonly": false,
+  "deviceReadonly": false,
+  "limitCommands": false,
+  "map": "googleRoad",
+  "bingKey": null,
+  "mapUrl": null,
+  "poiLayer": null,
+  "latitude": 14.720471,
+  "longitude": -17.4587,
+  "zoom": 17,
+  "twelveHourFormat": false,
+  "version": "5.8",
+  "forceSettings": false,
+  "coordinateFormat": null,
+  "openIdEnabled": false,
+  "openIdForce": false,
+  "attributes": {
+    "timezone": "Africa/Dakar"
+  }
 }
 
+####### create admin user
+POST {{serve_url}}/api/users
+Content-Type: application/json
+Accept: application/json
+Authorization: Basic {{admin_username}}:{{admin_password}}
 
-# {
-#   "id": 1,
-#   "attributes": {
-#     "timezone": "Africa/Dakar"
-#   },
-#   "registration": false,
-#   "readonly": false,
-#   "deviceReadonly": false,
-#   "map": "googleRoad",
-#   "bingKey": null,
-#   "mapUrl": null,
-#   "overlayUrl": null,
-#   "latitude": 14.720471,
-#   "longitude": -17.4587,
-#   "zoom": 17,
-#   "twelveHourFormat": false,
-#   "forceSettings": false,
-#   "coordinateFormat": null,
-#   "limitCommands": false,
-#   "disableReports": false,
-#   "fixedEmail": false,
-#   "poiLayer": null,
-#   "announcement": null,
-#   "emailEnabled": false,
-#   "geocoderEnabled": true,
-#   "textEnabled": false,
-#   "storageSpace": null,
-#   "newServer": false,
-#   "openIdEnabled": false,
-#   "openIdForce": false,
-#   "version": "5.8"
-# }
+{
+  "id": 0,
+  "name": "Aristide",
+  "email": "mendoo.aristide@gmail.com",
+  "phone": "+221773675573",
+  "readonly": false,
+  "administrator": false,
+  "map": "googleRoad",
+  "latitude": 14.720471,
+  "longitude": -17.4587,
+  "zoom": 17,
+  "password": "passer12345",
+  "twelveHourFormat": false,
+  "coordinateFormat": null,
+  "disabled": false,
+  "expirationTime": null,
+  "deviceLimit": -1,
+  "userLimit": 0,
+  "deviceReadonly": false,
+  "limitCommands": false,
+  "fixedEmail": false,
+  "poiLayer": null,
+  "attributes": {
+    "activeMapStyles": ",googleRoad,osm",
+    "timezone": "Africa/Dakar",
+    "mapFollow": true,
+    "mapGeofences": true,
+    "mapCluster": true,
+    "mapOnSelect": true,
+    "positionItems": "speed,address,totalDistance,course,batteryLevel,fuelConsumption,fuel,battery",
+    "mapLiveRoutes": "all",
+    "mapDirection": "all"
+  }
+}
 
-####### Session
+### 
+GET {{serve_url}}/api/users/2
+Content-Type: application/json
+Accept: application/json
+Authorization: Basic {{admin_username}}:{{admin_password}}
+
+
 

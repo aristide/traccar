@@ -1,7 +1,7 @@
 version: "3.5"
 
 services:
-  # Mariadb
+
   mysqldb:
     image: 'mysql:8.0.33'
     container_name: mysqldb
@@ -19,32 +19,7 @@ services:
       - MYSQL_PASSWORD=password
     security_opt:
       - seccomp:unconfined
-  
-  # PhpMyAdmin
-  phpmyadmin:
-    image: 'bitnami/phpmyadmin:4.9.0-1-r44'
-    container_name: phpmyadmin
-    ports:
-      - 8181:80
-    volumes:
-      - phpmyadmindata:/bitnami
-    environment:
-      - PHPMYADMIN_ALLOW_NO_PASSWORD=true
-      - PHPMYADMIN_PASSWORD=password
-      - DATABASE_HOST=mysqldb
-      - DATABASE_USER=traccar
-      - DATABASE_PASSWORD=password
-    depends_on:
-      - mysqldb
-  
-  # Mailer
-  mailer:
-    image: djfarrelly/maildev:1.0.0
-    container_name: mailer
-    ports: 
-      - 1080:80
-      - 1025:25
- 
+
   gradlew :
     image: atmmotors/server-gradlew:1.0.0 
     container_name: gradlew
@@ -123,8 +98,8 @@ services:
       SUPPORT_EMAIL: support@atmmotors.org
 
 volumes:
-  phpmyadmindata:
   mysqldata:
+  mysqldata2:
   mysqllogs:
   logs:
   node_module:
