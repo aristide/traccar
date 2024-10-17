@@ -30,3 +30,6 @@ scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r \
     "$HOME/lib"  \
     "$HOME/atmmotors-server.jar"  \
     "$REMOTE_USER@$REMOTE_HOST:/opt/atmmotors/"
+
+echo "Acces permission"
+ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${REMOTE_USER}@${REMOTE_HOST}  "sudo chown maaeko:maaeko -R /opt/atmmotors; sudo chmod -R 755 /opt/atmmotors; systemctl restart supervisor ; systemctl restart nginx;"

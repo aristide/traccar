@@ -78,7 +78,7 @@ WORKDIR /home/atmmotors
 
 RUN \
   apk update && \
-  apk add git && \
+  apk add git nano  && \
   rm -rf /var/cache/apk/*
 
 RUN mkdir -p /tmp/traccar-web && \
@@ -164,7 +164,7 @@ WORKDIR $HOME
 
 # Install OpenSSH client
 RUN apk upgrade --update && \
-    apk add --update curl bash openssh-client && \
+    apk add --update curl bash openssh-client nano && \
     rm -rf /var/cache/apk/* && \
     mkdir -p $HOME/conf \
     mkdir -p $HOME/setup \
